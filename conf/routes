@@ -1,0 +1,18 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Enable webjar based resources to be returned
+GET     /webjars/*file              controllers.WebJarAssets.at(file)
+
+# Home page route
+GET     /	                    controllers.Application.index()
+
+# test post route
+POST    /test                  controllers.Application.postTest()
+
+# form route
+POST	/home-again		    controllers.Application.postForm()
+
+# Map the JS resource paths
+GET     /public/*file               controllers.Assets.at(path="/public", file)

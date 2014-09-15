@@ -1,0 +1,796 @@
+@(message: String)
+
+@main(message) {
+
+
+<div ng-controller="TabController as tab">
+
+    <header id="header1" xmlns="http://www.w3.org/1999/html">
+
+        <div id="page-title1" ng-show="tab.isSet(1)">
+            <h1> Electro Statik Code <br><small>Making dynamic global storefronts for a new mobile age</small></h1>
+            <hr>
+        </div>
+
+        <div id="page-title2" ng-show="tab.isSet(2)">
+            <h1> Shawn Grauel <small>Founder Of Electro Statik Code</small></h1>
+            <hr>
+        </div>
+
+        <div id="page-title4" ng-show="tab.isSet(3)">
+            <h1> Want a quality website? <small>Contact me now for a free consultation</small></h1>
+            <hr>
+        </div>
+
+
+        <nav class="navbar navbar-inverse" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ng-click="tab.setTab(1)" href="#">Products and Services</a>
+            </div>
+
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li ng-class="{ active:tab.isSet(2) }" ng-click="tab.setTab(2)"><a>About</a></li>
+                    <li ng-class="{ active:tab.isSet(3) }" ng-click="tab.setTab(3)"><a>Contact</a></li>
+                    <li ng-class="{ active:tab.isSet(4) }" ng-click="tab.setTab(4)"><a>Blog</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+
+    </header>
+
+
+<!-- front page -->
+<article id="frontpage" ng-show="tab.isSet(1)">
+
+    <!--
+    Carousel :
+    1) scale down the larger images to the lowest image size
+    2) create a button text property for the imageWithText object
+    Do we want the carousel to pause given a mouse over event?
+    NOTE: mouse over event is enacted by default
+
+    -->
+
+    <section ng-controller="carouselController as carouselCtrl" id="carousel">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="{{carouselCtrl.interval}}">
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel" ng-repeat="slide in carouselCtrl.slides" ng-class="{'active' : $index == 0}" data-slide-to="{{$index}}"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div ng-repeat="slide in carouselCtrl.slides" ng-class="{'active' : $index == 0 }" class="item">
+                    <img ng-src="{{slide.image}}" alt="First slide">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>{{ slide.headline }}</h1>
+                            <p>{{ slide.text }}</p>
+                            <p><a class="btn btn-lg btn-primary" href="#" role="button">{{ slide.buttonText }}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        </div>
+    </section>
+
+
+
+    <!--
+    <section id="carousel">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="@routes.Assets.at("img/BostonCityFlow1366x911.jpg")" alt="First slide">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>Example headline.</h1>
+                            <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
+                            <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="@routes.Assets.at("img/RedBench1604x1080.jpg")" alt="Second slide">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>Another example headline.</h1>
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="@routes.Assets.at("img/FallingAsleepForest1920x1080.jpg")" alt="Third slide">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>One more for good measure.</h1>
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        </div>
+    </section>
+    -->
+
+    <section id="aboutBusiness">
+    <h1> The Brave New World </h1>
+    <div class="well well-lg">A website isn't <em>just a place</em>, it's your <strong>global storefront</strong> in an ever growing ecosystem of social media profiles and web applications.</div>
+    <p>
+    We live in a brave new world of social media and mobile technology as virtually everyone has a social media presence and a smartphone or tablet. We also live in an increasingly global and interconnected world where users of our products and services may live halfway around the globe. There too we must be prepared. We at Electro Statik Code can guarentee that with <strong>a dynamic, responsive, SEO optimized, and secure modern web application tailored to your personal preferences.</strong> We want to help you attract more business, so learn more about our <a>pricing plans</a> and get started today!
+    </p>
+  </section>
+  
+</article>
+
+
+<!-- about page -->
+<article id="aboutpage" ng-show="tab.isSet(2)">
+    <section id="myPortrait">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="thumbnail">
+                        <img src='@routes.Assets.at("img/myPortrait.jpg")'>
+                        <div class="caption">
+                            <h3>Re-envisioning the Future of Web Development</h3>
+                            <p>
+                                Hello, my name is Shawn Grauel and I'd like to propose a thought provoking idea: What if your website or web application was a both a storefront and a community of merchants, a place where you could sell your products and services, but also a community of reputable entrepreneurs you could draw strength from and participate in ... kind of like, yes you guessed it. A virtual mall. Well have I great news for you! That is exactly what you get when you do business with Electro Statik Code. We guarentee a high quality virtual storefront that safely processes requests for your goods in modern web app style. Just pay for the cost of site construction and other deployment related fees and give your business that extra boost it needs to succeed. At Electro Statik Code, we never stop working for you.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </section>
+</article>
+
+<!-- contact page -->
+<article id="contactpage" ng-controller="formController as formCtrl" ng-show="tab.isSet(3)">
+    <br><br>
+    <section id="contactForm">
+
+                    <!-- Form tasks i.e. Contact Form i.e. distinct from 'signup form'
+                    1. client-side input validation
+                      a. determines whether a field is required or not (CHECK)
+                      b. does regex pattern matching on input (CHECK)
+                      NOTE: there should be one-to-one relationship of equivalence
+                      between client-side regexes and server-side ones.
+                      c. validates constraints on minimum and maximum input (CHECK)
+                      d. sends error messaging to the user via DOM (CHECK)
+                      e. show validation states via CSS classes (CHECK)
+                    2. form submission (insecure, simple and single-page style)
+                       a. saves the form state by data synchronization between the model and view i.e. data binding
+                       (without CAPTCHA)
+                       b. sends the state back to the server for persistence
+                       c. server responds (but how to prevent the server from disrupting user experience?)
+                       NOTE: server will check for duplicate email addresses providing some level of security
+                    2. form submission (secure but annoying)
+                       a. send the data directly back to the server via POST request and validate CAPTCHA
+                       b. send the user to the homepage
+                    3. usability / aesthetics
+                       a. buttons become selected when the user hits 'TAB' disabling rapid form input cycling (CHECK)
+                       ** use 'labels' instead'
+                       b. city and state, country and zip inline fields (CHECK)
+                     -->
+
+                    <form name="contactForm" class="form-horizontal" role="form" ng-submit="formCtrl.submitForm()" novalidate>
+                        <div class="container">
+                            <div class="col-md-1"></div>
+                            <!-- label and input field -->
+                            <div class="row">
+                                <div class="col-md-9">
+
+                                <div class="form-group form-group-lg" ng-class="{ 'has-error': contactForm.name.$invalid && contactForm.name.$dirty, 'has-success': contactForm.name.$valid && contactForm.name.$dirty }">
+                                    <label class="control-label col-sm-2" for="input1"> Name </label>
+                                    <div class="col-sm-10">
+                                        <input id="input1" name="name" type="text" class="form-control input-lg" ng-model="formCtrl.form.name"
+                                        ng-pattern="/^[a-zA-Z\']+\ [a-zA-Z\']+$/" ng-minlength="{{ formCtrl.constraints.name[0] }}"
+                                        ng-maxlength="{{ formCtrl.constraints.name[1] }}" required>
+
+                                        <div id="errorMessagesName">
+                                            <span class="error" ng-show="contactForm.name.$error.pattern">
+                                                <br>
+                                                *  Invalid name. Your first name followed by your last please
+                                            </span>
+                                            <span class="error" ng-show="contactForm.name.$error.required">
+                                                <br>
+                                                *  Your name is required
+                                            </span>
+                                            <span class="error" ng-show="contactForm.name.$error.minlength">
+                                                <br>
+                                                *  Minimum {{ formCtrl.constraints.name[0] }} characters required
+                                            </span>
+                                            <span class="error" ng-show="contactForm.name.$error.maxlength">
+                                                <br>
+                                                *  Maximum {{ formCtrl.constraints.name[1] }} characters allowed
+                                            </span>
+                                            <!-- span to hold the distance when valid -->
+                                            <span class="error" ng-show="contactForm.name.$valid">
+                                                <br>
+                                                <br>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="form-group form-group-lg" ng-class="{ 'has-error': contactForm.address.$invalid && contactForm.address.$dirty, 'has-success': contactForm.address.$valid && contactForm.address.$dirty }">
+                                    <label class="control-label col-sm-2" for="input2"> Address </label>
+                                    <div class="col-sm-10">
+                                        <input id="input2" name="address" type="text" class="form-control input-lg" ng-model="formCtrl.form.address"
+                                        ng-pattern="/^[0-9a-zA-Z\ \.\#\,\;\:\']+$/" ng-minlength="{{ formCtrl.constraints.address[0] }}"
+                                        ng-maxlength="{{ formCtrl.constraints.address[1] }}" required>
+                                        <div id="errorMessagesAddress">
+                                            <span class="error" ng-show="contactForm.address.$error.pattern">
+                                                <br>
+                                                * Invalid address. Only some special characters allowed
+                                            </span>
+                                            <span class="error" ng-show="contactForm.address.$error.required">
+                                                <br>
+                                                * Your address is required
+                                            </span>
+                                            <span class="error" ng-show="contactForm.address.$error.minlength">
+                                                <br>
+                                                * Minimum {{ formCtrl.constraints.address[0] }} charcters required
+                                            </span>
+                                            <span class="error" ng-show="contactForm.address.$error.maxlength">
+                                                <br>
+                                                * Maximum {{ formCtrl.constraints.address[1] }} characters allowed
+                                            </span>
+                                                <!-- span to hold the distance when valid -->
+                                            <span class="error" ng-show="contactForm.address.$valid">
+                                                <br>
+                                                <br>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-6">
+                                        <div class="form-group form-group-lg" ng-class="{ 'has-error': contactForm.city.$invalid && contactForm.city.$dirty, 'has-success': contactForm.city.$valid && contactForm.city.$dirty }">
+                                            <label class="control-label col-sm-2" for="input3"> City </label>
+                                            <div class="col-sm-10">
+                                                <input id="input3" name="city" type="text" class="form-control input-lg" ng-model="formCtrl.form.city"
+                                                ng-pattern="/^[a-zA-Z\ \']+$/" ng-minlength="{{ formCtrl.constraints.city[0] }}"
+                                                ng-maxlength="{{ formCtrl.constraints.city[1] }}" required>
+                                                <div id="errorMessagesCity">
+                                                    <span class="error" ng-show="contactForm.city.$error.pattern">
+                                                        <br>
+                                                        * Invalid city. Only letters and spaces please
+                                                    </span>
+                                                    <span class="error" ng-show="contactForm.city.$error.required">
+                                                        <br>
+                                                        * Your city is required
+                                                    </span>
+                                                    <span class="error" ng-show="contactForm.city.$error.minlength">
+                                                        <br>
+                                                        * Minimum {{ formCtrl.constraints.city[0] }} charcters required
+                                                    </span>
+                                                    <span class="error" ng-show="contactForm.city.$error.maxlength">
+                                                        <br>
+                                                        * Maximum {{ formCtrl.constraints.city[1] }} characters allowed
+                                                    </span>
+                                                        <!-- span to hold the distance when valid -->
+                                                    <span class="error" ng-show="contactForm.city.$valid">
+                                                        <br>
+                                                        <br>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group form-group-lg" ng-class="{ 'has-error': contactForm.state.$invalid && contactForm.state.$dirty, 'has-success': contactForm.state.$valid && contactForm.state.$dirty }">
+                                            <label class="control-label col-sm-2" for="input4"> State </label>
+                                            <div class="col-sm-10">
+                                                <input id="input4" name="state" type="text" class="form-control input-lg" ng-model="formCtrl.form.state"
+                                                ng-pattern="/^[a-zA-Z\ \']+$/" ng-minlength="{{ formCtrl.constraints.state[0] }}"
+                                                ng-maxlength="{{ formCtrl.constraints.state[1] }}" required>
+                                                <div id="errorMessagesState">
+                                                    <span class="error" ng-show="contactForm.state.$error.pattern">
+                                                        <br>
+                                                        * Invalid state. Only letters and spaces please
+                                                    </span>
+                                                    <span class="error" ng-show="contactForm.state.$error.required">
+                                                        <br>
+                                                        * Your state is required
+                                                    </span>
+                                                    <span class="error" ng-show="contactForm.state.$error.minlength">
+                                                        <br>
+                                                        * Minimum {{ formCtrl.constraints.state[0] }} charcters required
+                                                    </span>
+                                                    <span class="error" ng-show="contactForm.state.$error.maxlength">
+                                                        <br>
+                                                        * Maximum {{ formCtrl.constraints.state[1] }} characters allowed
+                                                    </span>
+                                                        <!-- span to hold the distance when valid -->
+                                                    <span class="error" ng-show="contactForm.state.$valid">
+                                                        <br>
+                                                        <br>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end row i.e. the subdivision of the collumn of medium size length 9 -->
+
+                                <br>
+
+
+                            <div class="row">
+                              <div class="col-md-1"></div>
+                                <div class="col-md-6">
+                                <div class="form-group form-group-lg" ng-class="{ 'has-error': contactForm.country.$invalid && contactForm.country.$dirty, 'has-success': contactForm.country.$valid && contactForm.country.$dirty }">
+                                      <label for="input6" class="control-label col-sm-2"> Country </label>
+                                      <div class="col-sm-10">
+                                          <select id="input6" name="country" type="text" class="form-control input-lg" ng-model="formCtrl.form.country" required>
+                                            <option value="US">United States</option>
+                                            <option value="CA">Canada</option>
+                                            <option value="AF">Afghanistan</option>
+                                            <option value="AL">Albania</option>
+                                            <option value="DZ">Algeria</option>
+                                            <option value="AD">Andorra</option>
+                                            <option value="AO">Angola</option>
+                                            <option value="AI">Argentina</option>
+                                            <option value="AQ">Antartica</option>
+                                            <option value="AG">Antigua and Barbuda</option>
+                                            <option value="AR">Argentina</option>
+                                            <option value="AM">Armenia</option>
+                                            <option value="AW">Aruba</option>
+                                            <option value="AU">Australia</option>
+                                            <option value="AT">Austria</option>
+                                            <option value="AZ">Azerbaijan</option>
+                                            <option value="BS">Bahamas</option>
+                                            <option value="BH">Bharain</option>
+                                            <option value="BD">Bangladesh</option>
+                                            <option value="BB">Barbados</option>
+                                            <option value="BY">Belarus</option>
+                                            <option value="BE">Belgium</option>
+                                            <option value="BZ">Belize</option>
+                                            <option value="BJ">Benin</option>
+                                            <option value="BM">Bermuda</option>
+                                            <option value="BT">Bhutan</option>
+                                            <option value="BO">Bolivia</option>
+                                            <option value="BA">Bosnia and Herzegowina</option>
+                                            <option value="BW">Botswana</option>
+                                            <option value="BV">Bouvet Island</option>
+                                            <option value="BR">Brazil</option>
+                                            <option value="IO">British Indian Ocean Territory</option>
+                                            <option value="VG">British Virgin Islands</option>
+                                            <option value="BN">Brunei Darussalam</option>
+                                            <option value="BG">Bulgaria</option>
+                                            <option value="BF">Burkina Faso</option>
+                                            <option value="BI">Burundi</option>
+                                            <option value="KH">Cambodia</option>
+                                            <option value="CM">Cameroon</option>
+                                            <option value="CA">Canada</option>
+                                            <option value="CV">Cape Verde</option>
+                                            <option value="KY">Cayman Islands</option>
+                                            <option value="CF">Central African Republic</option>
+                                            <option value="TD">Chad</option>
+                                            <option value="CL">Chile</option>
+                                            <option value="CX">Christmas Island</option>
+                                            <option value="CC">Cocos (Keeling) Islands</option>
+                                            <option value="CO">Colombia</option>
+                                            <option value="KM">Comoros</option>
+                                            <option value="CG">Congo</option>
+                                            <option value="CK">Cook Islands</option>
+                                            <option value="CR">Costa Rica</option>
+                                            <option value="CI">Cote d'Ivoire</option>
+                                            <option value="HR">Croatia</option>
+                                            <option value="CU">Cuba</option>
+                                            <option value="CY">Cyprus</option>
+                                            <option value="CZ">Czech Republic</option>
+                                            <option value="DK">Denmark</option>
+                                            <option value="DJ">Djibouti</option>
+                                            <option value="DM">Dominica</option>
+                                            <option value="DO">Dominican Republic</option>
+                                            <option value="TP">East Timor</option>
+                                            <option value="EC">Ecuador</option>
+                                            <option value="EG">Egypt</option>
+                                            <option value="SV">El Salvador</option>
+                                            <option value="GQ">Equatorial Guinea</option>
+                                            <option value="ER">Eritrea</option>
+                                            <option value="EE">Estonia</option>
+                                            <option value="ET">Ethiopia</option>
+                                            <option value="FK">Falkland Islands</option>
+                                            <option value="FO">Faroe Islands</option>
+                                            <option value="FJ">Fiji</option>
+                                            <option value="FI">Finland</option>
+                                            <option value="FR">France</option>
+                                            <option value="GF">French Guiana</option>
+                                            <option value="PF">French Polynesia</option>
+                                            <option value="GA">Gabon</option>
+                                            <option value="GM">Gambia</option>
+                                            <option value="GE">Georgia</option>
+                                            <option value="DE">Germany</option>
+                                            <option value="GI">Gibraltar</option>
+                                            <option value="GR">Greece</option>
+                                            <option value="GL">Greenland</option>
+                                            <option value="GD">Grenada</option>
+                                            <option value="VC">Grenadines</option>
+                                            <option value="GP">Guadelope</option>
+                                            <option value="GU">Guam</option>
+                                            <option value="GT">Guatemala</option>
+                                            <option value="GN">Guinea</option>
+                                            <option value="GW">Guinea-Bissau</option>
+                                            <option value="GY">Guyana</option>
+                                            <option value="HT">Haiti</option>
+                                            <option value="HM">Heard and McDonald Islands</option>
+                                            <option value="HN">Honduras</option>
+                                            <option value="HK">Hong Kong</option>
+                                            <option value="HU">Hungary</option>
+                                            <option value="IS">Iceland</option>
+                                            <option value="IN">India</option>
+                                            <option value="ID">Indonesia</option>
+                                            <option value="IR">Iran</option>
+                                            <option value="IQ">Iraq</option>
+                                            <option value="IE">Ireland</option>
+                                            <option value="IL">Israel</option>
+                                                    <option value="IT">Italy</option>
+                                                    <option value="JM">Jamaica</option>
+                                                    <option value="JP">Japan</option>
+                                                    <option value="JO">Jordan</option>
+                                                    <option value="KZ">Kazakhstan</option>
+                                                    <option value="KE">Kenya</option>
+                                                    <option value="KI">Kiribati</option>
+                                                    <option value="KP">Korea, People's Republic</option>
+                                                    <option value="KR">Korea, ROK</option>
+                                                    <option value="KW">Kuwait</option>
+                                                    <option value="KG">Kyrgyzstan</option>
+                                                    <option value="LA">Lao Democratic Republic</option>
+                                                    <option value="LV">Latvia</option>
+                                                    <option value="LB">Lebanon</option>
+                                                    <option value="LS">Lesotho</option>
+                                                    <option value="LR">Liberia</option>
+                                                    <option value="LY">Libyan Arab Jamahiriyah</option>
+                                                    <option value="LI">Liechtenstein</option>
+                                                    <option value="LT">Lithuania</option>
+                                                    <option value="LU">Luxembourg</option>
+                                                    <option value="MO">Macau</option>
+                                                    <option value="MK">Macedonia</option>
+                                                    <option value="MG">Madagaskar</option>
+                                                    <option value="MW">Malawi</option>
+                                                    <option value="MY">Malaysia</option>
+                                                    <option value="MV">Maldives</option>
+                                                    <option value="ML">Mali</option>
+                                                    <option value="MT">Malta</option>
+                                                    <option value="MH">Marshall Islands</option>
+                                                    <option value="MQ">Martinique</option>
+                                                    <option value="MR">Mauritania</option>
+                                                    <option value="MU">Mauritius</option>
+                                                    <option value="YT">Mayotte</option>
+                                                    <option value="MX">Mexico</option>
+                                                    <option value="FM">Micronesia</option>
+                                                    <option value="MD">Moldova, Rep. of</option>
+                                                    <option value="MC">Monaco</option>
+                                                    <option value="MN">Mongolia</option>
+                                                    <option value="MS">Montserrat</option>
+                                                    <option value="MA">Morocco</option>
+                                                    <option value="MZ">Mozambique</option>
+                                                    <option value="MM">Myanmar</option>
+                                                    <option value="NA">Namibia</option>
+                                                    <option value="NR">Nauru</option>
+                                                    <option value="NP">Nepal</option>
+                                                    <option value="NL">Netherlands</option>
+                                                    <option value="AN">Netherlands Antilles</option>
+                                            <option value="NC">New Caledonia</option>
+                                                        <option value="NZ">New Zealand</option>
+                                                        <option value="NI">Nicaragua</option>
+                                                        <option value="NE">Niger</option>
+                                                        <option value="NG">Nigeria</option>
+                                                        <option value="NU">Niue</option>
+                                                        <option value="NF">Norfolk Island</option>
+                                                        <option value="MP">Northern Mariana Islands</option>
+                                                        <option value="NO">Norway</option>
+                                                        <option value="OM">Oman</option>
+                                                        <option value="PK">Pakistan</option>
+                                                        <option value="PW">Palau</option>
+                                                        <option value="PA">Rep. of Panama</option>
+                                                        <option value="PG">Papua New Guinea</option>
+                                                        <option value="PY">Paraguay</option>
+                                                        <option value="CN">People's Rep. China</option>
+                                                    <option value="PE">Peru</option>
+                                                    <option value="PH">Philippines</option>
+                                                    <option value="PN">Pitcairn</option>
+                                                    <option value="PL">Poland</option>
+                                                    <option value="PT">Portugal</option>
+                                                    <option value="QA">Qatar</option>
+                                                    <option value="RE">Reunion</option>
+                                                    <option value="RO">Romania</option>
+                                                    <option value="RU">Russia</option>
+                                                    <option value="RW">Rwanda</option>
+                                                    <option value="KN">Saint Kitts and Nevis</option>
+                                                    <option value="LC">Saint Lucia</option>
+                                                    <option value="WS">Samoa</option>
+                                                    <option value="SM">Rep. San Marino</option>
+                                                    <option value="ST">São Tome and Principe</option>
+                                                    <option value="SA">Saudi Arabia</option>
+                                                    <option value="SN">Senegal</option>
+                                                    <option value="SC">Seychelles</option>
+                                                    <option value="SL">Sierra Leone</option>
+                                                    <option value="SG">Singapore</option>
+                                                    <option value="SK">Slovakia</option>
+                                                    <option value="SI">Slovenia</option>
+                                                    <option value="SB">Solomon Islands</option>
+                                                    <option value="SO">Somalia</option>
+                                                    <option value="ZA">South Africa</option>
+                                                    <option value="ES">Spain</option>
+                                                    <option value="LK">Rep. of Sri Lanka</option>
+                                                    <option value="SH">St. Helena</option>
+                                                    <option value="PM">St. Pierre and Miquelon</option>
+                                                    <option value="SD">Sudan</option>
+                                                    <option value="SR">Suriname</option>
+                                                    <option value="SJ">Svalbard and Jan Mayen</option>
+                                                    <option value="SZ">Swaziland</option>
+                                                    <option value="SE">Sweden</option>
+                                                    <option value="CH">Switzerland</option>
+                                                    <option value="SY">Syrian Arab Republic</option>
+                                                    <option value="TW">Taiwan, ROC</option>
+                                                    <option value="TJ">Tajikstan</option>
+                                                    <option value="TZ">Tanzania</option>
+                                                    <option value="TH">Thailand</option>
+                                                    <option value="TG">Togo</option>
+                                                    <option value="TK">Tokelau</option>
+                                                    <option value="TO">Tonga</option>
+                                                    <option value="TT">Trinidad West Indies</option>
+                                                    <option value="TN">Tunisia</option>
+                                                    <option value="TR">Turkey</option>
+                                                    <option value="TM">Turkmenistan</option>
+                                                    <option value="TC">Turks and Caicos Islands</option>
+                                                    <option value="TV">Tuvalu</option>
+                                                    <option value="UG">Uganda</option>
+                                                    <option value="UA">Ukraine</option>
+                                                    <option value="AE">UAE</option>
+                                                    <option value="UK">United Kingdom</option>
+                                                    <option value="UY">Uruguay</option>
+                                                    <option value="VI">US Virgin Islands</option>
+                                                    <option value="UZ">Uzbekistan</option>
+                                                    <option value="VU">Vanuatu</option>
+                                                    <option value="VA">Vatican City State</option>
+                                                    <option value="VE">Venezuela</option>
+                                                    <option value="VN">Vietnam</option>
+                                                    <option value="WF">Wallis and Futuna Islands</option>
+                                                    <option value="EH">Western Sahara</option>
+                                                    <option value="YE">Yemen</option>
+                                                    <option value="YU">Yugoslavia</option>
+                                                    <option value="ZR">Zaire</option>
+                                                    <option value="ZM">Zambia</option>
+                                                    <option value="ZW">Zimbabwe</option>
+                                        </select>
+                                        <div id="errrorMessagesCountry">
+                                            <span class="error" ng-show="contactForm.country.$error.required">
+                                                <br>
+                                                * Please select a country
+                                            </span>
+                                            <!-- span to hold the distance when valid -->
+                                            <span class="error" ng-show="contactForm.country.$valid">
+                                                <br>
+                                                <br>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+
+
+                                <div class="col-md-5">
+                                <div class="form-group form-group-lg" ng-class="{ 'has-error': contactForm.zip.$invalid && contactForm.zip.$dirty, 'has-success': contactForm.zip.$valid && contactForm.zip.$dirty }">
+                                        <label class="control-label col-sm-2" for="input5"> Zip </label>
+                                        <div class="col-sm-10">
+                                            <input id="input5" name="zip" type="text" class="form-control input-lg" ng-model="formCtrl.form.zip"
+                                            ng-pattern="/^[0-9]+$/" ng-minlength="{{ formCtrl.constraints.zip[0] }}"
+                                            ng-maxlength="{{ formCtrl.constraints.zip[1] }}" required>
+                                            <div id="errorMessagesZip">
+                                                <span class="error" ng-show="contactForm.zip.$error.pattern">
+                                                    <br>
+                                                    * Invalid zip code. Digits only please
+                                                </span>
+                                                <span class="error" ng-show="contactForm.zip.$error.required">
+                                                    <br>
+                                                    * Your zip code is required
+                                                </span>
+                                                <span class="error" ng-show="contactForm.zip.$error.minlength">
+                                                    <br>
+                                                    * Minimum {{ formCtrl.constraints.zip[0] }} charcters required
+                                                </span>
+                                                <span class="error" ng-show="contactForm.zip.$error.maxlength">
+                                                    <br>
+                                                    * Maximum {{ formCtrl.constraints.zip[1] }} characters allowed
+                                                </span>
+                                                    <!-- span to hold the distance when valid -->
+                                                <span class="error" ng-show="contactForm.zip.$valid">
+                                                    <br>
+                                                    <br>
+                                                </span>
+                                            </div>
+                                        </div>
+                                </div>
+                                </div>
+                            </div> <!-- end row -->
+
+                            <br>
+
+                            <div class="form-group form-group-lg" ng-class="{ 'has-error': contactForm.phone.$invalid && contactForm.phone.$dirty, 'has-success': contactForm.phone.$valid && contactForm.phone.$dirty }">
+                                <label class="control-label col-sm-2" for="input7"> Phone </label>
+                                <div class="col-sm-10">
+                                    <input id="input7" name="phone" type="text" class="form-control input-lg" ng-model="formCtrl.form.phone"
+                                    ng-pattern="/^[0-9]+$/" ng-minlength="{{ formCtrl.constraints.phone[0] }}"
+                                    ng-maxlength="{{ formCtrl.constraints.phone[1] }}" required>
+                                    <div id="errorMessagesPhone">
+                                        <span class="error" ng-show="contactForm.phone.$error.pattern">
+                                            <br>
+                                            * Invalid phone number. Digits only please
+                                        </span>
+                                        <span class="error" ng-show="contactForm.phone.$error.required">
+                                            <br>
+                                            * Your phone number is required
+                                        </span>
+                                        <span class="error" ng-show="contactForm.phone.$error.minlength">
+                                            <br>
+                                            * Minimum {{ formCtrl.constraints.phone[0] }} charcters required
+                                        </span>
+                                        <span class="error" ng-show="contactForm.phone.$error.maxlength">
+                                            <br>
+                                            * Maximum {{ formCtrl.constraints.phone[1] }} characters allowed
+                                        </span>
+                                        <span class="error" ng-show="contactForm.phone.$valid">
+                                            <br>
+                                            <br>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="form-group form-group-lg" ng-class="{ 'has-error': contactForm.email.$invalid && contactForm.email.$dirty, 'has-success': contactForm.email.$valid && contactForm.email.$dirty }">
+                                    <label class="control-label col-sm-2" for="input8"> Email </label>
+
+                                    <!-- NOTE on regex interpretation; Play Twirl looks at '@@'
+                                    seqeunce of characters as an escaped commencement of a dynamic expression.
+                                    A preceeding 'at sign' is needed to escape it within the regex passed to
+                                    ng-pattern. At sign is said as it is reading this comment.
+                                    -->
+                                    <div class="col-sm-10">
+                                        <input id="input8" name="email" type="text" class="form-control input-lg" ng-model="formCtrl.form.email"
+                                        ng-pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
+                                        ng-minlength="{{ formCtrl.constraints.email[0] }}"
+                                        ng-maxlength="{{ formCtrl.constraints.email[1] }}" required>
+                                        <div id="errorMessagesEmail">
+                                            <span class="error" ng-show="contactForm.email.$error.pattern">
+                                                <br>
+                                                * Invalid email address
+                                            </span>
+                                            <span class="error" ng-show="contactForm.email.$error.required">
+                                                <br>
+                                                * Your email is required
+                                            </span>
+                                            <span class="error" ng-show="contactForm.email.$error.minlength">
+                                                <br>
+                                                * Minimum {{ formCtrl.constraints.email[0] }} charcters required
+                                            </span>
+                                            <span class="error" ng-show="contactForm.email.$error.maxlength">
+                                                <br>
+                                                * Maximum {{ formCtrl.constraints.email[1] }} characters allowed
+                                            </span>
+                                            <span class="error" ng-show="contactForm.email.$valid">
+                                                <br>
+                                                <br>
+                                            </span>
+                                        </div>
+                                    </div>
+                            </div>
+
+                            <br>
+
+                            <div class="form-group form-group-lg" ng-class="{ 'has-error': contactForm.message.$invalid && contactForm.message.$dirty, 'has-success': contactForm.message.$valid && contactForm.message.$dirty }">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-10">
+
+                                    <label for="message" class="control-label"> How can I help you make the website of your dreams? </label>
+                                    <br><br>
+
+                                    <textarea id="message" name="message" type="text" rows="6" class="form-control input-lg"
+                                    ng-pattern="/^[\S\s]*$/" ng-model="formCtrl.form.message"
+                                    ng-maxlength="{{ formCtrl.constraints.message[1] }}">
+                                    </textarea>
+
+                                    <!-- NOTE: in attempting to reuse the message property from the form
+                                    and the messageLength function evaluation problems encountered -->
+                                    <div id="errorMessagesMessage">
+                                        <span class="error"
+                                        ng-show="contactForm.message.$valid &&
+                                                 !contactForm.message.$error.maxlength &&
+                                                 !contactForm.message.$error.pattern">
+                                            <br>
+                                            {{ formCtrl.messageLength(formCtrl.form.message) }} / 1732 characters left
+                                        </span>
+
+                                        <span class="error" ng-show="contactForm.message.$error.pattern">
+                                            <br>
+                                            * Invalid message. Please use more conventional characters
+                                        </span>
+                                        <span class="error" ng-show="contactForm.message.$error.maxlength">
+                                            <br>
+                                            * Maximum of {{ formCtrl.constraints.message[1] }} characters surpassed
+                                        </span>
+                                    </div>
+
+                                    <div id="submitButton">
+                                        <br><br>
+                                        <button type="submit" class="btn btn-default btn-lg" ng-disabled="contactForm.$invalid">Submit</button>
+                                        <br><br><br><br>
+                                    </div>
+                                </div>
+                            </div>
+                            </div> <!-- end col md 9 -->
+                            </div> <!-- end row -->
+                            <div class="col-md-2"></div>
+                        </div> <!-- end div class container -->
+                    </form>
+    </section>
+    <section>
+        <p>{{ formCtrl.form.name }}</p>
+        <p>{{ formCtrl.form.address }}</p>
+        <p>{{ formCtrl.form.city }}</p>
+        <p>{{ formCtrl.form.state }}</p>
+        <p>{{ formCtrl.form.country }}</p>
+        <p>{{ formCtrl.form.zip }}</p>
+        <p>{{ formCtrl.form.phone }}</p>
+        <p>{{ formCtrl.form.email }}</p>
+        <p>{{ formCtrl.form.message }}</p>
+    </section>
+</article>
+
+<hr>
+
+<footer>
+  <address>
+    <style> 
+      ul
+      {
+        list-style-type: none;
+        padding:0; 
+        margin:0;
+      }
+    </style>
+    <ul>
+      <li>Electro Statik Code</li>
+      <li>704 West End Ave. Apt. 5A</li>
+      <li>New York, NY, 10025</li>
+      <li>tel: +1 (917) 822-6870</li>
+      <li>email: <a href="#">click here</a></li>
+    </ul>
+   </address>
+</footer>
+</div>
+
+}

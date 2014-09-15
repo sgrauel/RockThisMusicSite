@@ -1,0 +1,138 @@
+THE NOW:
+
+
+todo:
+-----
+0. get into a nice workflow
+   a. push code to git
+   b. become familar with the testing technologies for angular.js
+      1. jasmine
+      2. karma
+      ect.
+
+
+Website:
+
+Administration Panel for adding, updating and deleting content
+  Authentication :
+  Social OAuth Authentication Scala Plugin
+       - cookie based authentication
+       - session based authentication
+       - token based
+       
+       a. create a secured action 
+       i.e. an action that requires pre-authorization
+        - authorization information in the header of request packet
+
+homepage:
+    a. carousel - full width
+       1. features a still images : 1) weekly artist interview, 2) live perforance feature 3) feature artist releases
+         a. images and buttons on images link to distinct videos
+         b. every weekly feature must be archived and searchable
+    NOTE: backend interface is needed for Jen to update the weekly content
+    - basic authentication system for one or more administerial users
+      
+    b. video gallery
+       1. a gallery of video interviews indexable by artist and date of interview
+       NOTE: it is important to notify social media about views of the videos
+       - embedding a youtube video OR interfacing with the youTube API to increment the view counter
+
+
+        c. navbar - Home, Interviews, Performances, Features, New Releases
+       Interviews - video gallery of artist interviews indexable by artist and date
+                   - 2 collums of videos in box widgets
+                  - drop down menu
+               - search field
+               - social media widget for tweeting, liking, google+ing, sharing with social media, link to band website in new tab
+               - right sidebar for ads
+               how to tastefully place ads?
+               banner adds at the top - cycling - google ads?
+           Performances - ''
+      
+       Music Videos Gallery (current artists) - video gallery connected to a database with all current artist music videos
+             - indexable by artist
+            NOTE: Jen will get these video files directly from the labels and a drag and drop uploader to put the videos into the
+         database
+         what is the cheapest tertiary storage option?
+         how can
+            
+      
+       Features - some sort media object with a picture and a long text
+            a. new releases - audio player with list of audio
+               1. video gallery connect to a database with music videos
+            b. band profile
+            c. tour dates - list of dates
+               - table of information i.e. name, city, state, venue, ticket vendor?
+            d. premier content i.e. exclusive music video and streaming entire new CD
+           
+            704 West End Ave. Apt. 5A
+
+           
+      
+      
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+THE VISION:
+
+MAIN IDEA: Virtual Storefront for Musicians and Other Artists i.e. Music News Reccommendation System and Advertizing Platform for Artists, Labels, and Venues
+  A community of artist/label/venue profiles sourcing their preferences and information about music, the news, popular culture, brands, touring ect.
+  NOTE: look at artist profiles on Reverbnation
+      search filters:
+    - artist name
+    - genre
+    - location
+    - label
+ 
+  : users should be able to search our database for an artist or a label
+  and find news with targeted advertizing about various artists AND
+  tour dates for those artists AND
+  a map of their intented tour route AND
+ 
+ 
+ 
+  artist profiles
+  i.e. first, rock musicians, then other types of artists
+     - news articles should be allowed to be organized by certain parameters
+        1. By chronical order certain publication date
+    i.e. from most recent to less recent
+      a. by chronical order and artist ect.
+      (different combinations of filters)
+    2. By tour date?
+    3. By type of rock e.g. Alternative, Industrial, Goth, EBM ect.
+
+    NOTE: it is the intention of this application to expose the underground,
+    therefore the popularity of the genre is irrelevant
+   NOTE: news personalization i.e. analytics IS done after the basic artist / label / tour date / tour route database is built
+  
+
+KEY QUESTION :
+??? But how is the information about tour dates going to be found OR extracted from the raw data that we mine? ???
+     
+  b. featured artist / artists page (select few evaluated by Jen)
+    - link to artist website
+    - link to music (SoundCloud, Spotify, YouTube)
+    - link to buy music and link to tour dates
+    - Map of tour route
+      NOTE: tour dates AND Map of tour routes obtained
+      from data mined or other API
+    -  band profile
+   
+  c. Tour date information page
+     : a more general interface for looking at tour dates
+ 
+   c. registration system and publication/subscription system for newletter and podcast via RSS feed or other conventional mechanism
+     - newsletter and podcast is advertized via a mailing system that maintains a mailing list
+     - the email sent is the newletter
+  
+   d. links to RockThis social media presence and interfacing with social media ecosystem via APIs
+
+administration panel:
+           functions:
+        a. add new video content to a video gallery / database
+               b. allow for the adding of new tour dates ?
+        NOTE: if data is mined and extracted what is the point?
+               c. inteface for Jen's personal blog entries i.e. music features
+
+Selecting a template:
+      0. the other boxy looking magazine template
+      1. Music-Nation
