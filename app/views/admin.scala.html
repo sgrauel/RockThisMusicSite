@@ -1,0 +1,441 @@
+@()
+
+
+    <ul class="nav nav-tabs nav-justified" role="tablist">
+        <li role="presentation" ng-class="{ 'active' : showComponents == 1 }"><a ng-click="showComponents = 1" >Features</a></li>
+        <li role="presentation" ng-class="{ 'active' : showComponents == 2}"><a ng-click="showComponents = 2">Carousel</a></li>
+    </ul>
+
+    <ul ng-show="showComponents == 1" class="nav nav-tabs nav-justified" role="tablist">
+        <li role="presentation" ng-class="{ 'active' : showCRUD == 1}"><a ng-click="showCRUD = 1">Create</a></li>
+        <li role="presentation" ng-class="{ 'active' : showCRUD == 2}"><a ng-click="showCRUD = 2">Update</a></li>
+        <li role="presentation" ng-class="{ 'active' : showCRUD == 3}"><a ng-click="showCRUD = 3">Delete</a></li>
+    </ul>
+
+
+    <!-- interface for updating a feature -->
+
+    <!-- interface for deleting a feature -->
+    <!-- NOTE: mass deletion of feature done by admin -->
+
+<!-- interface for creating a feature -->
+<div ng-show="showComponents == 1 && showCRUD == 1">
+    <form name="featureForm" class="form-horizontal" role="form" novalidate>
+            <br>
+            <h1>Create a New Feature</h1>
+
+            <br>
+
+            <h2>Select a Date and Time of Publication</h2>
+
+            <br>
+
+            <p><strong>NOTE :</strong> Articles will be published when the <em>actual time</em> in EST meets the publication date. Once published they will be ordered by date and time of publication i.e. more recent to less recent. If you would like to modify the date and time of any given feature or any other feature data for that matter, you should <em>update</em> the feature.</p>
+
+
+            <br>
+
+            <!-- date picker element -->
+            <div id="datepicker">
+
+                <p>Select a date</p>
+
+                <br>
+
+
+                <pre>Selected date is: <em>{{ feature.date | date:'fullDate' }}</em></pre>
+
+                <br>
+
+                <div style="display:inline-block; min-height:290px;">
+                    <datepicker ng-model="feature.date" show-weeks="true" class="well well-sm"></datepicker>
+                    <button type="button" class="btn btn-sm btn-info" ng-click="today()">Today</button>
+                    <button type="button" class="btn btn-sm btn-danger" ng-click="clear()">Clear</button>
+                </div>
+            </div>
+
+            <br><br>
+
+            <!-- time picker element -->
+            <div id="timepicker" ng-controller="timepickerCtrl">
+
+                <p>Select a time</p>
+
+                <br>
+
+                    <timepicker ng-model="$parent.feature.time" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+
+                    <pre class="alert alert-info">Time is: {{ $parent.feature.time | date:'shortTime' }}</pre>
+
+                    <div class="row">
+                        <div class="col-xs-6">
+                            Hours step is:
+                            <select class="form-control" ng-model="hstep" ng-options="opt for opt in options.hstep"></select>
+                        </div>
+                        <div class="col-xs-6">
+                            Minutes step is:
+                            <select class="form-control" ng-model="mstep" ng-options="opt for opt in options.mstep"></select>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <button class="btn btn-info" ng-click="toggleMode()">12H / 24H</button>
+                    <button class="btn btn-default" ng-click="update()">Set to 14:00</button>
+                    <button class="btn btn-danger" ng-click="clear()">Clear</button>
+
+                <!-- <p>{{ mytime }}</p> -->
+
+            </div>
+
+            <br>
+
+            <div class="form-group form-group-lg" ng-class="{ 'has-error': featureForm.introTitle.$invalid && featureForm.introTitle.$dirty, 'has-success': featureForm.introTitle.$valid && featureForm.introTitle.$dirty }">
+
+                <h2>Write an Introduction</h2>
+
+                <br>
+
+
+                <h3>Title</h3>
+
+                <br>
+
+                <input id="inputTitle" name="introTitle" type="text" class="form-control input-lg"
+                ng-model="feature.intro.introTitle"
+                ng-minlength="{{ constraints.introTitle[0] }}"
+                ng-maxlength="{{ constraints.introTitle[1] }}" required>
+
+                <div id="errorMessagesName">
+                    <span class="error" ng-show="featureForm.introTitle.$error.required">
+                        <br>
+                        *  title is required
+                    </span>
+
+                    <span class="error" ng-show="featureForm.introTitle.$error.minlength">
+                        <br>
+                        *  Minimum {{ constraints.introTitle[0] }} characters required
+                    </span>
+                    <span class="error" ng-show="featureForm.introTitle.$error.maxlength">
+                        <br>
+                        *  Maximum {{ constraints.introTitle[1] }} characters allowed
+                    </span>
+
+                    <span class="error" ng-show="featureForm.introTitle.$valid">
+                        <br>
+                        <br>
+                    </span>
+                </div>
+            </div>
+
+        <div class="form-group form-group-lg" ng-class="{ 'has-error': featureForm.introductoryText.$invalid && featureForm.introductoryText.$dirty, 'has-success': featureForm.introductoryText.$valid && featureForm.introductoryText.$dirty }">
+
+            <h3>Introductory Text</h3>
+
+            <br>
+
+            <textarea id="introInput" name="introductoryText" type="text" rows="6" class="form-control input-lg"
+            ng-model="feature.intro.introductoryText"
+            ng-minlength="{{ constraints.introductoryText[0] }}"
+            ng-maxlength="{{ constraints.introductoryText[1] }}"
+            required>
+            </textarea>
+
+            <div id="errorMessagesName">
+
+                <span class="error" ng-show="featureForm.introductoryText.$error.required">
+                    <br>
+                    *  introductory text is required
+                </span>
+
+                <span class="error" ng-show="featureForm.introductoryText.$error.minlength">
+                    <br>
+                    *  Minimum {{ constraints.introductoryText[0] }} characters required
+                </span>
+                <span class="error" ng-show="featureForm.introductoryText.$error.maxlength">
+                    <br>
+                    *  Maximum {{ constraints.introductoryText[1] }} characters allowed i.e. 500 words
+                </span>
+
+                <span class="error" ng-show="featureForm.introductoryText.$valid">
+                    <br>
+                    <br>
+                </span>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="form-group form-group-lg" ng-class="{ 'has-error': featureForm.artistTitle.$invalid && featureForm.artistTitle.$dirty, 'has-success': featureForm.artistTitle.$valid && featureForm.artistTitle.$dirty }">
+
+            <h2>Create an Artist Caption</h2>
+
+            <br>
+
+            <h3>Artist Title</h3>
+
+            <br>
+
+            <input id="inputArtistTitle" name="artistTitle" type="text" class="form-control input-lg"
+            ng-model="feature.caption.artistTitle"
+            ng-minlength="{{ constraints.artistTitle[0] }}"
+            ng-maxlength="{{ constraints.artistTitle[1] }}"
+            required>
+
+            <div id="errorMessagesName">
+                <span class="error" ng-show="featureForm.artistTitle.$error.required">
+                    <br>
+                    *  artist title is required
+                </span>
+
+                <span class="error" ng-show="featureForm.artistTitle.$error.minlength">
+                    <br>
+                    *  Minimum {{ constraints.artistTitle[0] }} characters required
+                </span>
+                <span class="error" ng-show="featureForm.artistTitle.$error.maxlength">
+                    <br>
+                    *  Maximum {{ constraints.artistTitle[1] }} characters allowed
+                </span>
+
+                <span class="error" ng-show="featureForm.artistTitle.$valid">
+                    <br>
+                    <br>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group form-group-lg" ng-class="{ 'has-error': featureForm.artistImage.$invalid && featureForm.artistImage.$dirty, 'has-success': featureForm.Image.$valid && featureForm.artistImage.$dirty }">
+
+            <h3>Upload Artist Images</h3>
+
+            <br>
+            <!-- how to upload images to '/img' directory? -->
+            <ng-upload-image></ng-upload-image>
+
+        </div>
+
+        <br>
+
+        <div class="form-group form-group-lg" ng-class="{ 'has-error': featureForm.captionText.$invalid && featureForm.captionText.$dirty, 'has-success': featureForm.captionText.$valid && featureForm.captionText.$dirty }">
+
+            <h3>Caption Text</h3>
+
+            <br>
+
+            <textarea id="captionInput" name="captionText" type="text" rows="6" class="form-control input-lg"
+            ng-model="feature.caption.captionText"
+            ng-minlength="{{ constraints.captionText[0] }}"
+            ng-maxlength="{{ constraints.captionText[1] }}"
+            required></textarea>
+
+            <div id="errorMessagesName">
+
+
+                <span class="error" ng-show="featureForm.captionText.$error.required">
+                    <br>
+                    *  caption text is required
+                </span>
+
+                <span class="error" ng-show="featureForm.captionText.$error.minlength">
+                    <br>
+                    *  Minimum {{ constraints.captionText[0] }} characters required
+                </span>
+                <span class="error" ng-show="featureForm.captionText.$error.maxlength">
+                    <br>
+                    *  Maximum {{ constraints.captionText[1] }} characters allowed
+                </span>
+
+                <span class="error" ng-show="featureForm.captionText.$valid">
+                    <br>
+                    <br>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group form-group-lg">
+
+            <h3>Artist Websites</h3>
+
+            <p> add / remove artist websites </p>
+
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" ng-click="addArtistWebsite()">Add</button>
+                <button type="button" class="btn btn-default" ng-click="removeArtistWebsite()">Remove</button>
+            </div>
+
+            <br><br>
+
+            <p><strong>NOTE :</strong> <br>
+                - you can add a maximum of 5 websites for any artist <br>
+                - Specify the name and URL of each featured artist's website <br><br>
+                e.g. <br>
+                website name (without quotations on the LEFT) : "Nervana's Keep" <br>
+                website url : (also without quots on the RIGHT) : "http://www.nervanaskeep.com"
+            </p>
+
+            <br><br>
+
+            <div class="row" ng-repeat="j in generateNumberOfSites(feature.caption.website.websiteURLs.length)">
+
+                <p>Website {{ j }}</p>
+                <div class="col-md-5">
+                    <div class="form-group form-group-lg">
+                        <input id="inputWebsiteName" name="websiteName{{ j }}" type="text" class="form-control input-lg" placeholder="Website Name {{ j }}" ng-model="feature.caption.website.websiteNames[j - 1]" required>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-lg">
+                        <input id="inputWebsiteUrl" name="websiteUrl{{ j }}" type="text" class="form-control input-lg" placeholder="Website URL {{ j }}" ng-model="feature.caption.website.websiteURLs[j - 1]" required>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+
+        <!-- NOTE: quotation chars seem to be escaped with a backslash by default when copying iframe from reverb nation; should I remove these? -->
+        <div class="form-group form-group-lg" ng-class="{ 'has-error': featureForm.audioPlayer.$invalid && featureForm.audioPlayer.$dirty, 'has-success': featureForm.audioPlayer.$valid && featureForm.audioPlayer.$dirty }">
+
+            <h2>Insert an Audio Player iframe</h2>
+
+            <br>
+
+            <ol>
+                <li>Navigate to the site with the audio player iframe e.g. Reverb Nation or Sound Cloud</li>
+                <li>Copy the iframe element and paste</li>
+                <li>Give the iframe a width of 100% and a height of 500 pixels e.g.
+                </li>
+            </ol>
+
+            <pre>{{ iframe }}</pre> <strong>NOTE : '...'</strong> stands for the other attributes and their associated values and order of these pairings is irrelevant
+
+            <br><br>
+
+            <textarea id="audioPlayerInput" name="audioPlayer" type="text" rows="6" class="form-control input-lg"
+            ng-model="feature.audioPlayer"
+            ng-minlength="{{ constraints.audioPlayer[0] }}"
+            ng-maxlength="{{ constraints.audioPlayer[1] }}"
+            required>
+            </textarea>
+
+            <div id="errorMessagesName">
+
+                <span class="error" ng-show="featureForm.audioPlayer.$error.required">
+                    <br>
+                    *  audio player iframe text is required
+                </span>
+
+                <span class="error" ng-show="featureForm.audioPlayer.$error.minlength">
+                    <br>
+                    *  Minimum {{ constraints.audioPlayer[0] }} characters required
+                </span>
+                <span class="error" ng-show="featureForm.audioPlayer.$error.maxlength">
+                    <br>
+                    *  Maximum {{ constraints.audioPlayer[1] }} characters allowed
+                </span>
+
+                <span class="error" ng-show="featureForm.audioPlayer.$valid">
+                    <br>
+                    <br>
+                </span>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="form-group form-group-lg">
+
+            <h2>Load Band Videos</h2>
+
+            <p> add / remove featured artist videos and their accompanying titles  </p>
+
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" ng-click="addBandVideo()">Add</button>
+                <button type="button" class="btn btn-default" ng-click="removeBandVideo()">Remove</button>
+            </div>
+
+            <br><br>
+
+            <p><strong>NOTE :</strong> <br>
+                - you can add a maximum of 5 featured artist videos for any artist <br>
+                - iframes can be pulled from youtube or other source e.g. Vimeo
+            </p>
+
+            <br>
+
+            <div class="row" ng-repeat="l in generateNumberOfSites(feature.listOfBandVideos.length)">
+
+                <div class="col-md-5">
+                    <div class="form-group form-group-lg">
+                        <h3>Featured Artist Video {{ l }}</h3>
+                        <br>
+                        <input id="inputBandVideoTitle{{ l }}" name="bandVideoTitle{{ l }}" type="text" class="form-control input-lg" placeholder="Featured Artist Title {{ l }}" ng-model="feature.listOfBandVideos[l - 1].title" required>
+
+                        <br>
+
+                        <label>Featured artist iframe {{ l }}</label>
+                        <textarea id="inputBandVideo{{ l }}" name="bandVideo{{ l }}" type="text" rows="6" class="form-control input-lg" ng-model="feature.listOfBandVideos[l - 1].bandVideoUrl" required>
+                        </textarea>
+
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div id="submitButton">
+            <br><br>
+            <button type="submit" class="btn btn-default btn-lg" ng-disabled="featureForm.$invalid" ng-click="submitForm()" data-toggle="modal" data-target="#myModal">Submit</button>
+            <button type="reset" class="btn btn-default btn-lg" ng-click="clearForm()" data-toggle="modal" data-target="#myModal2">Clear Form</button>
+            <br><br><br><br>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Submission Successful</h4>
+                        </div>
+                        <div class="modal-body">
+                            Your feature has been submitted! <br><br> To submit another feature, clear the fields with the clear form button and submit again
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Form Cleared</h4>
+                        </div>
+                        <div class="modal-body">
+                            The form fields have been cleared! <br><br> Fill out the form again to submit another feature.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- modal window when submit is clicked -->
+
+
+    </form>
+</div>
+
+<!-- print JSON for debugging purposes -->
+<!-- <p>{{ feature }}</p> -->

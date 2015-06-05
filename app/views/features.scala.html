@@ -1,0 +1,72 @@
+@()
+
+<article id="features" xmlns="http://www.w3.org/1999/html" >
+
+    <!-- repeat div of class list-group to get separation of features -->
+    <div class="list-group" ng-repeat="feature in getFeatureList()">
+
+
+        <div class="list-group-item">
+
+            <!-- intro title and introductory text -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <br>
+                    <h2 class="list-group-item-heading">{{ feature.intro.introTitle }}</h2>
+                    <br>
+                    <p class="list-group-item-text">{{ feature.intro.introductoryText }}</p>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="thumbnail">
+                        <br>
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-5"><h3>{{ feature.caption.artistTitle }}</h3></div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <br>
+                        <img ng-src='http://localhost:9000/public/img/{{ feature.caption.artistImage }}'>
+                        <br>
+                        <div class="caption">
+                            <p>{{ feature.caption.captionText }}</p>
+                            <a ng-click="setShow()">View band websites</a>
+                            <div ng-show="show" class="list-group">
+                                <br>
+                                <a ng-repeat="websiteName in feature.caption.website.websiteNames" ng-class="{active : selectedWebsite == $index}" ng-click="selectedWebsite = $index" class="list-group-item" target="_blank" href="{{ feature.caption.website.websiteURLs[$index] }}">{{ websiteName }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" ng-bind-html="whiteList(feature.audioPlayer)">
+                </div>
+            </div>
+
+            <!-- List of band vidoes -->
+            <div ng-repeat="bandVideo in feature.listOfBandVideos">
+                <h3>{{ bandVideo.title }}</h3>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div ng-bind-html="whiteList(bandVideo.bandVideoUrl)" class="embed-responsive embed-responsive-16by9">
+                        </div>
+                    </div>
+                </div>
+            </di
+
+        </div>
+
+        <!-- to divide Feature objects from Feature objects and for the last Feature, the footer -->
+        <div class="row" ng-repeat="i in [1,2,3]">
+            <div class="col-md-12"><br></div>
+        </div>
+
+    </div>
+
+</article>

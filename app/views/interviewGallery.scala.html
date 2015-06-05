@@ -1,0 +1,101 @@
+@()
+
+<!-- video gallery of artist interviews organized alphabetically -->
+<!-- NOTE: the number of videos in this playlist **MUST be even -->
+<article id="interviews">
+
+        <!-- * the indicies corresponding to each video flow in an S shaped pattern going from Left to Right and Top to Bottom -->
+        <!-- * i keeps track of every even video and every row -->
+        <!-- * there exists a modal window with title and description properties for each media object -->
+    <div ng-repeat="i in interviewGalleryCtrl.galleryIndiciesEven" class="row">
+
+            <!-- the Left Gallery Collumn -->
+        <div class="col-md-6">
+
+                <!-- modal window for every even index mapped one-to-one to a video  -->
+            <div class="modal fade" id="myModal{{ i }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{{ interviewGalleryCtrl.galleryList[i].title }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div id="mediaPlayer1" class="embed-responsive embed-responsive-4by3">
+                                        <!-- w = 525 -->
+                                        <iframe class="embed-responsive-item" ng-src="{{ interviewGalleryCtrl.videoIdUrls[i] }}" width="100%" height="400" type="text/html"></iframe>
+                                    </div>
+                                </li>
+                            </ul>
+                            <p>{{ interviewGalleryCtrl.galleryList[i].description }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!-- media object for every even index mapped one-to-one to a video -->
+            <div class="list-group">
+                <a ng-click="interviewGalleryCtrl.widgetId = i" ng-class="{'active' : interviewGalleryCtrl.widgetId == i}" href="#" class="list-group-item" data-toggle="modal" data-target="#myModal{{ i }}">
+                    <h3>{{ interviewGalleryCtrl.galleryList[i].title }}</h3>
+                    <img ng-src="{{interviewGalleryCtrl.galleryList[i].thumbnail }}" class="img-responsive" alt="#">
+                    <p class="list-group-item-text">{{ interviewGalleryCtrl.galleryList[i].description }}</p>
+                </a>
+            </div>
+
+
+        </div>
+
+            <!-- the Right Gallery Collumn -->
+        <div class="col-md-6">
+
+                <!-- modal window for every odd index mapped one-to-one to a video -->
+            <div class="modal fade" id="myModal{{ i + 1 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{{ interviewGalleryCtrl.galleryList[i + 1].title }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div id="mediaPlayer1" class="embed-responsive embed-responsive-4by3">
+                                            <!--
+                                                iframe 525x400 is compatible with resolutions >= 768x1024
+                                                but incompatible with resolutions <= 360x640
+                                                what about devices > 360x640 , but < 768x1024?
+                                            -->
+                                        <iframe class="embed-responsive-item"
+                                        ng-src="{{ interviewGalleryCtrl.videoIdUrls[i + 1] }}" width="100%" height="400" type="text/html">
+                                        </iframe>
+                                    </div>
+                                </li>
+                            </ul>
+                            <p>{{ interviewGalleryCtrl.galleryList[i + 1].description }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!-- media object for every odd index mapped one-to-one to every video -->
+            <div class="list-group">
+                <a ng-click="interviewGalleryCtrl.widgetId = i + 1" ng-class="{'active' : interviewGalleryCtrl.widgetId == i + 1 }" href="#" class="list-group-item" data-toggle="modal" data-target="#myModal{{ i + 1 }}">
+                    <h3>{{ interviewGalleryCtrl.galleryList[i + 1].title }}</h3>
+                    <img ng-src="{{interviewGalleryCtrl.galleryList[i + 1].thumbnail }}" class="img-responsive" alt="#">
+                    <p class="list-group-item-text">{{ interviewGalleryCtrl.galleryList[i + 1].description }}</p>
+                </a>
+            </div>
+
+        </div>
+
+    </div> <!-- end row -->
+
+</article>

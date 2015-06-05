@@ -3,16 +3,78 @@
 # ~~~~
 
 # Enable webjar based resources to be returned
-GET     /webjars/*file              controllers.WebJarAssets.at(file)
+GET         /webjars/*file                 controllers.WebJarAssets.at(file)
 
 # Home page route
-GET     /	                    controllers.Application.index()
+GET         /                              controllers.Application.index()
 
-# test post route
-POST    /test                  controllers.Application.postTest()
+# contact form route
+POST        /home-again                    controllers.Application.postForm()
 
-# form route
-POST	/home-again		    controllers.Application.postForm()
+# feature form route
+POST        /feature-form                  controllers.Application.postFeature()
+
+# request authentication to admin-panel and serve admin panel
+GET         /admin-panel                   controllers.Application.accessAdminPanel()
+
+# header route
+GET         /header                        controllers.Application.getHeader()
+
+# front page route ; carousel cannot be referenced as directive due to disablement of the cycle functionality
+# GET        /front-page                    controllers.Application.getFrontPage()
+
+# performance gallery component route
+GET         /performance-gallery           controllers.Application.getPerformanceGallery()
+
+# interview gallery component route
+GET         /interview-gallery             controllers.Application.getInterviewGallery()
+
+# features component route
+GET         /features                      controllers.Application.getFeatures()
+
+# expose the list of Feature objects
+GET        /feature-list                   controllers.Application.getFeatureList()
+
+# about page route
+GET         /about                         controllers.Application.getAbout()
+
+# footer component route
+GET         /footer                        controllers.Application.getFooter()
+
+# admin-panel route (for admin-panel directive)
+GET         /admin-panel-directive         controllers.Application.getAdminPanel()
+
+
+# datepicker component route(s), composed of daypicker, monthpicker and yearpicker
+GET         /datepicker                    controllers.Application.getDatePicker()
+
+GET         /daypicker                     controllers.Application.getDayPicker()
+
+GET         /monthpicker                   controllers.Application.getMonthPicker()
+
+GET         /yearpicker                    controllers.Application.getYearPicker()
+
+# timepicker component route
+GET         /timepicker                    controllers.Application.getTimePicker()
+
+# file uploader component route
+GET         /uploadimage                   controllers.Application.getUploadImage()
+
+# post route for artist images
+POST        /artist-image                  controllers.Application.uploadArtistImage()
+
+
+
+# contact page route
+GET         /contact-form                  controllers.Application.getContactForm()
+
+# sign-in page route
+GET         /signin                        controllers.Application.signin()
+
+# youtube API routes
+GET         /rock-this-interviews          controllers.Application.getInterviews()
+
+GET         /rock-this-performances        controllers.Application.getPerformances()
 
 # Map the JS resource paths
-GET     /public/*file               controllers.Assets.at(path="/public", file)
+GET         /public/*file                  controllers.Assets.at(path="/public", file)

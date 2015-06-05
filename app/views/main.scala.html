@@ -5,20 +5,17 @@
 <head>
     <title>@title</title>
 
+     <!-- Carousel : in order for carousel to work references to Bootstrap (css and js) and JQuery **MUST
+     be placed at the top AND bottom of the page -->
+     <!-- NOTE: there is probably some connection between the oddity of these references and the fact that a directive cannot be
+     used to describe a carousel with the cycling functionality -->
     <!-- bootstrap 3.0.2 -->
     <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.js"))'></script>
     <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))'>
     <!-- jquery i.e. a bootstrap dependency -->
     <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("2.1.1/jquery.min.js"))'></script>
 
-    <!- angular.js 1.2.8 -->
-    <script type='text/javascript' src='@routes.Assets.at("js/angular-1.2.8/angular.min.js")'></script>
 
-    <!-- angular storefront module -->
-    <script type='text/javascript' src='@routes.Assets.at("js/frontPage.js")'></script>
-
-    <!-- restangular -->
-    <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("1.4.0/restangular.min.js"))'></script>
 </head>
 
 <body>
@@ -27,11 +24,37 @@
     </div>
 
     <!-- Carousel : in order for carousel to work references to Bootstrap (css and js) and JQuery **MUST
-     be placed at the bottom of the page -->
+     be placed at the top AND bottom of the page -->
     <!-- bootstrap 3.0.2 -->
     <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.js"))'></script>
     <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))'>
      <!-- jquery i.e. a bootstrap dependency -->
     <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("2.1.1/jquery.min.js"))'></script>
+
+    <!- angular.js 1.2.8 -->
+    <!-- NOTE: ngMessages capability in angular 1.3.* -->
+    <script type='text/javascript' src='@routes.Assets.at("js/angular-1.2.8/angular.min.js")'></script>
+
+    <!-- angular storefront module -->
+    <script type='text/javascript' src='@routes.Assets.at("js/frontPage.js")'></script>
+
+    <!-- angular-ui module -->
+    <script type='text/javascript' src='@routes.Assets.at("js/ui-bootstrap-0.11.2.js")'></script>
+
+    <!-- angular file upload module -->
+    <script type='text/javascript' src='@routes.Assets.at("js/angular-file-upload.min.js")'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>

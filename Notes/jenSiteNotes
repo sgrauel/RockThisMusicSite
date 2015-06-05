@@ -16,9 +16,26 @@ Website:
 Administration Panel for adding, updating and deleting content
   Authentication :
   Social OAuth Authentication Scala Plugin
-       - cookie based authentication
-       - session based authentication
-       - token based
+       1. cookie based authentication
+       2. session based authentication
+       3. token based
+       	  e.g. OAuth 2.0
+	  task: access private user data with an authorized request i.e. authorized request made by a web server application
+	  STEP 1: obtain a access token, and sometimes a refresh token
+	     a. obtain an authorization code
+	     	1. application redirects a users browser to a Google URL
+		i.e. URL with query paramerters indicating the type of access
+		requested e.g.  user authentication, session selection, or user consent
+		2. Google's authentication server returns an authorization code
+	     b. application sends the authorization code, 
+	     client id and the client secret to google's authentication server to obtain a access token (and sometimes a refresh token)
+	     	- access token : used to authenticate on the user's behalf
+		NOTE: access tokens have an expiration date
+		- refresh token : a token that will allow you to retrieve a new access token (from Google's Authentication servers)
+		 when the initial access token expires
+	  STEP 2: send an authorized partial request with the access token to an API e.g. YouTube API
+         4. authentication using an API key i.e. unauthorized requests
+       	 
        
        a. create a secured action 
        i.e. an action that requires pre-authorization
@@ -38,7 +55,7 @@ homepage:
        - embedding a youtube video OR interfacing with the youTube API to increment the view counter
 
 
-        c. navbar - Home, Interviews, Performances, Features, New Releases
+        c. navbar - Home, Interviews, Performances, Features, New Releases, Podcast
        Interviews - video gallery of artist interviews indexable by artist and date
                    - 2 collums of videos in box widgets
                   - drop down menu
@@ -57,18 +74,24 @@ homepage:
          how can
             
       
-       Features - some sort media object with a picture and a long text
-            a. new releases - audio player with list of audio
-               1. video gallery connect to a database with music videos
-            b. band profile
-            c. tour dates - list of dates
-               - table of information i.e. name, city, state, venue, ticket vendor?
-            d. premier content i.e. exclusive music video and streaming entire new CD
+       Features page - featuring an artist of the week or an event e.g. CBGB festival, CMJ ect.
+       - some sort media object with a picture and a long text
+            b. band profile i.e. bio
+	    - photo, link of band website, description of band, title
+            c. upcoming tour dates - list of dates
+               - table of information i.e. name, city, state, venue
+            d. premier content i.e. exclusive music video and streaming entire new CD i.e. music player
+       NOTE: features also need to be archived and indexable by artist
+       
            
+	   
             704 West End Ave. Apt. 5A
 
            
-      
+      	   Releases
+	   a. new releases - audio player with list of audio
+               1. video gallery connect to a database with music videos
+	   
       
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -136,3 +159,50 @@ administration panel:
 Selecting a template:
       0. the other boxy looking magazine template
       1. Music-Nation
+
+
+-------
+
+Marc Council:
+
+1. WS.url(url)
+2. chained timeout, signature from an oauth calculator pulling the configs from the application.conf 
+3. finally a wild card get from the url 
+NOTE: You wouldnt need the tweet iteratee either since you dont have to process by chunking
+But its an example of the signature and code flow... this is more advanced but you can see how it comes together
+
+
+---------------------------------------------------------------------------------------------------------------
+
+// gets the channel information page
+    /*
+    issue a GET request for 0 or more channel resources from
+    RockThisTV channel i.e. channel id = UCcI0m9UxYNgZXg2YPqTmp0A
+    "key" -> "API key"
+    */
+    /*
+    val responseFuture: Future[Response] = WS.url("https://www.googleapis.com/youtube/v3/channels")
+      .withQueryString(
+        "key" -> "AIzaSyB0eeTtUnrGityYT4kQmOjZu2PnCLNewyg",
+        "part" -> "snippet,invideoPromotion",
+        "fields" -> "items(snippet(publishedAt,title,description,thumbnails),invideoPromotion(items))",
+        "id" -> "UCcI0m9UxYNgZXg2YPqTmp0A").get
+    */
+
+    /*
+    issue a GET request for all videos concerning RockThisTV channel
+    NOTE: ordered by date i.e. more recent to less recent and limited to 50 / 84 results
+    i.e. channel id = UCcI0m9UxYNgZXg2YPqTmp0A
+     */
+    /*
+    val responseFuture: Future[Response] = WS.url("https://www.googleapis.com/youtube/v3/search")
+      .withQueryString(
+        "key" -> "AIzaSyB0eeTtUnrGityYT4kQmOjZu2PnCLNewyg",
+        "part" -> "snippet",
+        "fields" -> "items(id,snippet(publishedAt,title,description,thumbnails))",
+        "channelId" -> "UCcI0m9UxYNgZXg2YPqTmp0A",
+        "order" -> "date",
+        "maxResults" -> "50",
+        "type" -> "video"
+      ).get
+      */

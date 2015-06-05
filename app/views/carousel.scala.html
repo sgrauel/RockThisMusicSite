@@ -1,0 +1,33 @@
+@()
+
+   <!--
+    Carousel :
+    1) scale down the larger images to the lowest image size
+    2) create a button text property for the imageWithText object
+    Do we want the carousel to pause given a mouse over event?
+    NOTE: mouse over event is enacted by default
+    -->
+
+    <!-- carousel will freeze i.e. will not cycle when ng-controller directive is used -->
+
+    <section ng-controller="carouselController as carouselCtrl" id="carousel">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="{{carouselCtrl.interval}}">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" ng-repeat="slide in carouselCtrl.slides" ng-class="{'active' : $index == 0}" data-slide-to="{{$index}}"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div ng-repeat="slide in carouselCtrl.slides" ng-class="{'active' : $index == 0 }" class="item">
+                    <img ng-src="{{slide.image}}" alt="First slide">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>{{ slide.headline }}</h1>
+                            <p>{{ slide.text }}</p>
+                            <p><a class="btn btn-lg btn-primary" href="#" role="button">{{ slide.buttonText }}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        </div>
+    </section>

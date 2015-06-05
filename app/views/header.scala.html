@@ -1,0 +1,95 @@
+@()
+
+    <header id="header1" xmlns="http://www.w3.org/1999/html">
+
+        <div class="row">
+
+            <!-- headlines for each view : front-page, interviews, live performances, featured artists, about page, and contact page -->
+            <div class="col-md-8">
+                <div id="page-title1" ng-show="tab.isSet(0)">
+                    <h1> ROCK THIS! <br><small>The Best in New Music From Around the World</small></h1>
+                    <hr>
+                </div>
+
+                <div id="page-title2" ng-show="tab.isSet(1)">
+                    <h1> ROCK THIS! Interviews <br><small>Jen Meola Interviews the World's Talent</small></h1>
+                    <hr>
+                </div>
+
+                <div id="page-title3" ng-show="tab.isSet(2)">
+                    <h1> ROCK THIS! Live Performances <br><small>Get Out There and See it Live!</small></h1>
+                    <hr>
+                </div>
+
+                <div id="page-title3" ng-show="tab.isSet(3)">
+                    <h1> Featured Artists <br><small>The Artists You Know and Love</small></h1>
+                    <hr>
+                </div>
+
+                <div id="page-title4" ng-show="tab.isSet(5)">
+                    <h1> Jen Meola <br><small>Creator, Executive Producer and Host of ROCK THIS!</small></h1>
+                    <hr>
+                </div>
+
+                <div id="page-title5" ng-show="tab.isSet(6)">
+                    <h1> Contact <br><small>Are You an Artist Who Wants to be Featured? Let Us Know!</small></h1>
+                    <hr>
+                </div>
+            </div>
+
+            <!-- social media icons : facebook, twitter, youtube and instagram -->
+            <div class="col-md-1">
+                <br><br><br>
+                <a href="https://www.facebook.com/rockthislive" target="_blank">
+                        <img src='@routes.Assets.at("img/socialMediaIcons/facebookIcon.png")'>
+                </a>
+            </div>
+            <div class="col-md-1">
+                <br><br><br>
+                <a href="https://twitter.com/jenmeola" target="_blank">
+                    <img src='@routes.Assets.at("img/socialMediaIcons/twitterIcon.png")'>
+                </a>
+            </div>
+            <div class="col-md-1">
+                <br><br><br>
+                <a href="https://www.youtube.com/user/RockThisTV" target="_blank">
+                    <img src='@routes.Assets.at("img/socialMediaIcons/youtubeIcon.png")'>
+                </a>
+            </div>
+            <div class="col-md-1">
+                <br><br><br>
+                <a href="http://instagram.com/jenmeola" target="_blank">
+                    <img src='@routes.Assets.at("img/socialMediaIcons/instagramIcon.png")'>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- the navigation bar -->
+        <nav class="navbar navbar-inverse" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ng-click="tab.setTab(0)" href="#">Home</a>
+            </div>
+
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li ng-class="{ active:tab.isSet(1) }" ng-click="tab.setTab(1)"><a>Interviews</a></li>
+                    <li ng-class="{ active:tab.isSet(2) }" ng-click="tab.setTab(2)"><a>Performances</a></li>
+                    <li ng-class="{ active:tab.isSet(3) }" ng-click="tab.setTab(3)"><a>Features</a></li>
+                    <li ng-class="{ active:tab.isSet(4) }" ng-click="tab.setTab(4)"><a>New Releases</a></li>
+                    <li ng-class="{ active:tab.isSet(5) }" ng-click="tab.setTab(5)"><a>About</a></li>
+                    <li ng-class="{ active:tab.isSet(6) }" ng-click="tab.setTab(6)"><a>Contact</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+
+    </header>

@@ -1,0 +1,16 @@
+@(message: String)
+
+@main(message) {
+    <!-- problem passing in query string parameter arguments to accessAdminPanel -->
+
+    <article id="signIn">
+
+        <form action="@routes.Application.accessAdminPanel()" method="get">
+            <h2>Please sign in</h2><br>
+            <input class="form-control" type="text" name="username" placeholder="Username"><br>
+            <input class="form-control" type="password" name="password" placeholder="Password"><br>
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">
+        </form>
+
+    </article>
+}
